@@ -7,7 +7,7 @@ from django import forms
 from django.conf import settings
 from django.forms.widgets import FILE_INPUT_CONTRADICTION
 from django.template import loader
-from django.utils import datetime_safe, formats
+from django.utils import formats
 from django.utils.dates import MONTHS
 from django.utils.encoding import force_str
 from django.utils.html import conditional_escape
@@ -18,6 +18,11 @@ from .compat import MULTIVALUE_DICT_TYPES, flatten_contexts
 
 
 from django.forms.utils import to_current_timezone
+
+try:  # datetime_safe was removed in Django 5.0
+    from django.utils import datetime_safe
+except ImportError:
+    import datetime as datetime_safe
 
 
 RE_DATE = re.compile(r'(\d{4})-(\d\d?)-(\d\d?)$')
